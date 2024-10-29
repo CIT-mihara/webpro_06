@@ -96,6 +96,7 @@ app.get("/janken", (req, res) => {
       break;
   }
   total += 1;
+
   const display = {
     your: hand,
     cpu: cpu,
