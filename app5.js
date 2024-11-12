@@ -23,6 +23,11 @@ app.get("/luck", (req, res) => {
   let luck = '';
   if( num==1 ) luck = '大吉';
   else if( num==2 ) luck = '中吉';
+  else if( num==3 ) luck = '小吉';
+  else if( num==4 ) luck = '吉';
+  else if( num==5 ) luck = '末吉';
+  else if( num==6 ) luck = '凶';
+
   console.log( 'あなたの運勢は' + luck + 'です' );
   res.render( 'luck', {number:num, luck:luck} );
 });
@@ -105,6 +110,177 @@ app.get("/janken", (req, res) => {
     total: total
   }
   res.render( 'janken', display );
+});
+
+const character = 
+[
+  {shape: "あ", luck: 3, color: "red"},
+  {shape: "い", luck: 2, color: "blue"},
+  {shape: "う", luck: 2, color: "green"},
+  {shape: "え", luck: 2, color: "yellow"},
+  {shape: "お", luck: 3, color: "black"},
+
+  {shape: "か", luck: 3, color: "red"},
+  {shape: "き", luck: 3, color: "blue"},
+  {shape: "く", luck: 1, color: "green"},
+  {shape: "け", luck: 3, color: "yellow"},
+  {shape: "こ", luck: 2, color: "black"},
+
+  {shape: "さ", luck: 2, color: "red"},
+  {shape: "し", luck: 1, color: "blue"},
+  {shape: "す", luck: 1, color: "green"},
+  {shape: "せ", luck: 3, color: "yellow"},
+  {shape: "そ", luck: 1, color: "black"},
+
+  {shape: "た", luck: 4, color: "red"},
+  {shape: "ち", luck: 2, color: "blue"},
+  {shape: "つ", luck: 1, color: "green"},
+  {shape: "て", luck: 1, color: "yellow"},
+  {shape: "と", luck: 2, color: "black"},
+
+  {shape: "な", luck: 4, color: "red"},
+  {shape: "に", luck: 3, color: "blue"},
+  {shape: "ぬ", luck: 2, color: "green"},
+  {shape: "ね", luck: 2, color: "yellow"},
+  {shape: "の", luck: 1, color: "black"},
+
+  {shape: "は", luck: 3, color: "red"},
+  {shape: "ひ", luck: 1, color: "blue"},
+  {shape: "ふ", luck: 4, color: "green"},
+  {shape: "へ", luck: 1, color: "yellow"},
+  {shape: "ほ", luck: 4, color: "black"},
+
+  {shape: "ま", luck: 3, color: "red"},
+  {shape: "み", luck: 2, color: "blue"},
+  {shape: "む", luck: 3, color: "green"},
+  {shape: "め", luck: 2, color: "yellow"},
+  {shape: "も", luck: 3, color: "black"},
+
+  {shape: "ら", luck: 2, color: "red"},
+  {shape: "り", luck: 2, color: "blue"},
+  {shape: "る", luck: 1, color: "green"},
+  {shape: "れ", luck: 2, color: "yellow"},
+  {shape: "ろ", luck: 1, color: "black"},
+
+  {shape: "や", luck: 3, color: "red"},
+  {shape: "ゐ", luck: 1, color: "blue"},
+  {shape: "ゆ", luck: 2, color: "green"},
+  {shape: "ゑ", luck: 1, color: "yellow"},
+  {shape: "よ", luck: 2, color: "black"},
+
+  {shape: "わ", luck: 2, color: "white"},
+  {shape: "を", luck: 3, color: "white"},
+  {shape: "ん", luck: 1, color: "white"},
+
+  {shape: "が", luck: 5, color: "red"},
+  {shape: "ぎ", luck: 5, color: "blue"},
+  {shape: "ぐ", luck: 3, color: "green"},
+  {shape: "げ", luck: 5, color: "yellow"},
+  {shape: "ご", luck: 4, color: "black"},
+
+  {shape: "ざ", luck: 4, color: "red"},
+  {shape: "じ", luck: 3, color: "blue"},
+  {shape: "ず", luck: 4, color: "green"},
+  {shape: "ぜ", luck: 5, color: "yellow"},
+  {shape: "ぞ", luck: 3, color: "black"},
+
+  {shape: "だ", luck: 6, color: "red"},
+  {shape: "ぢ", luck: 4, color: "blue"},
+  {shape: "づ", luck: 3, color: "green"},
+  {shape: "で", luck: 3, color: "yellow"},
+  {shape: "ど", luck: 4, color: "black"},
+
+  {shape: "ば", luck: 5, color: "red"},
+  {shape: "び", luck: 3, color: "blue"},
+  {shape: "ぶ", luck: 6, color: "green"},
+  {shape: "べ", luck: 3, color: "yellow"},
+  {shape: "ぼ", luck: 6, color: "black"},
+
+  {shape: "ぱ", luck: 4, color: "red"},
+  {shape: "ぴ", luck: 2, color: "blue"},
+  {shape: "ぷ", luck: 5, color: "green"},
+  {shape: "ぺ", luck: 2, color: "yellow"},
+  {shape: "ぽ", luck: 5, color: "black"},
+
+  {shape: "ぁ", luck: 1, color: "white"},
+  {shape: "ぃ", luck: 1, color: "white"},
+  {shape: "ぅ", luck: 1, color: "white"},
+  {shape: "ぇ", luck: 1, color: "white"},
+  {shape: "ぉ", luck: 1, color: "white"},
+
+  {shape: "ゃ", luck: 1, color: "white"},
+  {shape: "ゅ", luck: 1, color: "white"},
+  {shape: "ょ", luck: 1, color: "white"},
+  {shape: "っ", luck: 1, color: "white"},
+
+];
+
+function str_length_floor(target_str, max_length){
+  target_str.splice(target_str.length - max_length + 1, target_str.length - max_length);
+  return target_str;
+}
+
+function check_char(target_str){
+  let error = false;
+  target_str.forEach(value => {
+      character.find(id => id.shape === value)? null : error = true;
+  });
+  return error;
+}
+
+function get_char_info(target_str){
+  let target_info = [];
+  target_str.forEach(value => {
+      target_info.push(character.find(id => id.shape === value));
+  });
+  return target_info;
+}
+
+app.get("/seimei", (req, res) => {
+  const split_num = 3;
+
+  let first_name = req.query.first;
+  let family_name = req.query.family;
+
+  let first_str = first_name.split("");
+  let family_str = family_name.split("");
+
+  first_str = str_length_floor(first_str, split_num);
+  family_str = str_length_floor(family_str, split_num);
+
+  let error = check_char(first_str) || check_char(family_str);
+
+  if(!error){
+    first_info = get_char_info(first_str);
+    family_info = get_char_info(family_str);
+
+    let name_info = first_info.concat(family_str);
+
+    let color_num = new Map; 
+    name_info.forEach(id => {
+        let count = -~color_num.get(id.color);
+        color_num.set(id.color, count);
+    });
+
+    let max = 0;
+    color_num.forEach(value => {
+        value > max? max = value:null;
+    });
+
+    let max_color = new Map(Array.from(color_num).filter(value => 
+      value[1] === max
+    ));
+
+    let colorful = max_color.size > 1;
+    const display = {
+      first: first_str.join(""),
+      family: family_str.join("")
+    }
+    res.render('seimei',display);
+  }
+  else {
+    res.render('error');
+  }
 });
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
