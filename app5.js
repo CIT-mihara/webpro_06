@@ -4,114 +4,6 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use("/public", express.static(__dirname + "/public"));
 
-app.get("/hello1", (req, res) => {
-  const message1 = "Hello world";
-  const message2 = "Bon jour";
-  res.render('show', { greet1:message1, greet2:message2});
-});
-
-app.get("/hello2", (req, res) => {
-  res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
-});
-
-app.get("/icon", (req, res) => {
-  res.render('icon', { filename:"./public/Apple_logo_black.svg", alt:"Apple Logo"});
-});
-
-app.get("/luck", (req, res) => {
-  const num = Math.floor( Math.random() * 6 + 1 );
-  let luck = '';
-  if( num==1 ) luck = '大吉';
-  else if( num==2 ) luck = '中吉';
-  else if( num==3 ) luck = '小吉';
-  else if( num==4 ) luck = '吉';
-  else if( num==5 ) luck = '末吉';
-  else if( num==6 ) luck = '凶';
-
-  console.log( 'あなたの運勢は' + luck + 'です' );
-  res.render( 'luck', {number:num, luck:luck} );
-});
-
-app.get("/janken", (req, res) => {
-  let hand = req.query.hand;
-  let win = Number( req.query.win );
-  let total = Number( req.query.total );
-  let result = 0;
-  let judgement = '';
-
-  console.log( {hand, win, total});
-  const num = Math.floor( Math.random() * 3 + 1 );
-  let cpu = '';
-  if( num==1 ) cpu = 'グー';
-  else if( num==2 ) cpu = 'チョキ';
-  else cpu = 'パー';
-  // ここに勝敗の判定を入れる
-  switch(hand){
-    case "グー":
-      switch(cpu){
-        case "グー":
-          result = 0;
-          break;
-        case "チョキ":
-          result = 1;
-          break;
-        case "パー":
-          result = -1;
-          break;
-      }
-      break;
-    case "チョキ":
-      switch(cpu){
-        case "グー":
-          result = -1;
-          break;
-        case "チョキ":
-          result = 0;
-          break;
-        case "パー":
-          result = 1;
-          break;
-      }
-      break;
-    case "パー":
-      switch(cpu){
-        case "グー":
-          result = 1;
-          break;
-        case "チョキ":
-          result = -1;
-          break;
-        case "パー":
-          result = 0;
-          break;
-      }
-      break;
-  }
-  // 今はダミーで人間の勝ちにしておく
-  switch(result){
-    case 1:
-      judgement = "勝ち";
-      win += 1;
-      break;
-    case 0:
-      judgement = "引き分け";
-      break;
-    case -1:
-      judgement = "負け";
-      break;
-  }
-  total += 1;
-
-  const display = {
-    your: hand,
-    cpu: cpu,
-    judgement: judgement,
-    win: win,
-    total: total
-  }
-  res.render( 'janken', display );
-});
-
 const character = 
 [
   {shape: "あ", luck: 3, color: "red"},
@@ -236,6 +128,114 @@ function get_char_info(target_str){
   return target_info;
 }
 
+app.get("/hello1", (req, res) => {
+  const message1 = "Hello world";
+  const message2 = "Bon jour";
+  res.render('show', { greet1:message1, greet2:message2});
+});
+
+app.get("/hello2", (req, res) => {
+  res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
+});
+
+app.get("/icon", (req, res) => {
+  res.render('icon', { filename:"./public/Apple_logo_black.svg", alt:"Apple Logo"});
+});
+
+app.get("/luck", (req, res) => {
+  const num = Math.floor( Math.random() * 6 + 1 );
+  let luck = '';
+  if( num==1 ) luck = '大吉';
+  else if( num==2 ) luck = '中吉';
+  else if( num==3 ) luck = '小吉';
+  else if( num==4 ) luck = '吉';
+  else if( num==5 ) luck = '末吉';
+  else if( num==6 ) luck = '凶';
+
+  console.log( 'あなたの運勢は' + luck + 'です' );
+  res.render( 'luck', {number:num, luck:luck} );
+});
+
+app.get("/janken", (req, res) => {
+  let hand = req.query.hand;
+  let win = Number( req.query.win );
+  let total = Number( req.query.total );
+  let result = 0;
+  let judgement = '';
+
+  console.log( {hand, win, total});
+  const num = Math.floor( Math.random() * 3 + 1 );
+  let cpu = '';
+  if( num==1 ) cpu = 'グー';
+  else if( num==2 ) cpu = 'チョキ';
+  else cpu = 'パー';
+  // ここに勝敗の判定を入れる
+  switch(hand){
+    case "グー":
+      switch(cpu){
+        case "グー":
+          result = 0;
+          break;
+        case "チョキ":
+          result = 1;
+          break;
+        case "パー":
+          result = -1;
+          break;
+      }
+      break;
+    case "チョキ":
+      switch(cpu){
+        case "グー":
+          result = -1;
+          break;
+        case "チョキ":
+          result = 0;
+          break;
+        case "パー":
+          result = 1;
+          break;
+      }
+      break;
+    case "パー":
+      switch(cpu){
+        case "グー":
+          result = 1;
+          break;
+        case "チョキ":
+          result = -1;
+          break;
+        case "パー":
+          result = 0;
+          break;
+      }
+      break;
+  }
+  // 今はダミーで人間の勝ちにしておく
+  switch(result){
+    case 1:
+      judgement = "勝ち";
+      win += 1;
+      break;
+    case 0:
+      judgement = "引き分け";
+      break;
+    case -1:
+      judgement = "負け";
+      break;
+  }
+  total += 1;
+
+  const display = {
+    your: hand,
+    cpu: cpu,
+    judgement: judgement,
+    win: win,
+    total: total
+  }
+  res.render( 'janken', display );
+});
+
 app.get("/seimei", (req, res) => {
   const split_num = 3;
 
@@ -254,7 +254,7 @@ app.get("/seimei", (req, res) => {
     first_info = get_char_info(first_str);
     family_info = get_char_info(family_str);
 
-    let name_info = first_info.concat(family_str);
+    let name_info = first_info.concat(family_info);
 
     let color_num = new Map; 
     name_info.forEach(id => {
@@ -272,15 +272,45 @@ app.get("/seimei", (req, res) => {
     ));
 
     let colorful = max_color.size > 1;
+
+    let luck_color = "";
+    let strength_color = "";
+
+    if(colorful === false){
+      if      (max_color.has("red"))    {luck_color="赤色";}
+      else if (max_color.has("blue"))   {luck_color="青色";}
+      else if (max_color.has("green"))  {luck_color="緑色";}
+      else if (max_color.has("yellow")) {luck_color="黄色";}
+      else if (max_color.has("black"))  {luck_color="黒色";}
+      else if (max_color.has("white"))  {luck_color="白色";}
+    }
+    else luck_color = "が，よくわからん色";
+
+    if(max <= 3)  strength_color = "薄い";
+    else          strength_color = "強い";
+
+    let luck_total = name_info.reduce((sum, id) => {return sum + id.luck},0);
+    let luck_power = "";
+
+    if(luck_total <= 5) luck_power = "弱そう";
+    else if(luck_total <= 10) luck_power = "強そう";
+    else if(luck_total <= 13) luck_power = "ものすごく強そう";
+    else luck_power = "禍々しそう";
+
     const display = {
       first: first_str.join(""),
-      family: family_str.join("")
+      family: family_str.join(""),
+      color: luck_color,
+      strength: strength_color,
+      power: luck_power
     }
     res.render('seimei',display);
   }
   else {
-    res.render('error');
+    res.render('seimei_error');
   }
 });
+
+app.get("/")
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));
