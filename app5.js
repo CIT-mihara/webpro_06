@@ -311,6 +311,57 @@ app.get("/seimei", (req, res) => {
   }
 });
 
-app.get("/")
+app.get("/day", (req, res) => {
+  let date = req.query.date;
+  let date_info = date.split("-");
+
+  let year = Number(date_info[0]);
+  let month = Number(date_info[1]);
+  let days = Number(date_info[2]);
+  
+  let y = month<3? year-1:year;
+  let Y = y%100;
+  let m = month<3? month+12:month;
+  let d = days;
+  
+  let _day1 = Y+Math.floor(Y/4)-2*Math.floor(y/100)+Math.floor(y/400);
+  let _day2 = Math.floor((26*(m+1))/10)+d;
+  let day_number = (_day1+_day2)%7;
+  
+  let day_name = "";
+
+  switch(day_number){
+    case 0:
+      day_name = "土曜";
+      break;
+    case 1:
+      day_name = "日曜";
+      break;
+    case 2:
+      day_name = "月曜";
+      break;
+    case 3:
+      day_name = "火曜";
+      break;
+    case 4:
+      day_name = "水曜";
+      break;
+    case 5:
+      day_name = "木曜";
+      break;
+    case 6:
+      day_name = "金曜";
+      break;
+  }
+
+  const display = {
+    year: year,
+    month: month,
+    days: days,
+    day: day_name
+  };
+  
+  res.render('day',display);
+}) 
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));

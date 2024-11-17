@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" asyncsrc="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=MML_SVG"></script>
+    <title>Day</title>
+</head>
+<body>
+    <p><%= year %>年<%= month %>月<%= days %>日は<%= day %>日です!</p>
+    <form action="/day">
+        <input type="date" name="date" id="date">
+        <input type="submit" value="送信">
+    </form>
+</body> 
+</html>
