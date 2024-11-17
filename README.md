@@ -48,6 +48,9 @@ day | 指定した日付の曜日を求める
 show.ejs | hello1及びhello2のテンプレートファイル
 
 ##### 内部処理
+ここでは，```app5.js```及び構成ファイル内のプログラムについて説明する．
+
+以下に```app5.js```内での処理の流れをフローチャートとして記載する．
 ```mermaid
 flowchart TD;
 start["開始"];
@@ -59,7 +62,9 @@ pass --> end1
 
 ```
 
-app5.jsにおいて，各挨拶を格納した変数をオブジェクトにし，show.ejsに渡している．
+次に，各処理の要点をコードを用いて説明する．
+
+```app5.js```において，各挨拶を格納した変数をオブジェクトにし，show.ejsに渡している．
 ```
 res.render('show', { greet1:message1, greet2:message2});
 ```
@@ -76,7 +81,9 @@ res.render('show', { greet1:message1, greet2:message2});
 show.ejs | hello1及びhello2のテンプレートファイル
 
 ##### 内部処理
+ここでは，```app5.js```及び構成ファイル内のプログラムについて説明する．
 
+以下に```app5.js```内での処理の流れをフローチャートとして記載する．
 ```mermaid
 flowchart TD;
 start["開始"];
@@ -88,7 +95,9 @@ pass --> end1
 
 ```
 
-app5.jsにおいて，各挨拶を直接オブジェクトにし，show.ejsに渡している．
+次に各処理の要点をコードを用いて説明する．
+
+```app5.js```において，各挨拶を直接オブジェクトにし，show.ejsに渡している．
 
 ```
 res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
@@ -108,6 +117,10 @@ res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
 icon.ejs | iconのテンプレートファイル
 
 ##### 内部処理
+
+ここでは，```app5.js```及び構成ファイル内のプログラムについて説明する．
+
+以下に```app5.js```内での処理の流れをフローチャートとして記載する．
 ```mermaid
 flowchart TD;
 start["開始"];
@@ -117,20 +130,20 @@ pass["画像のpassを送信"]
 start --> pass
 pass --> end1
 ```
+次に各処理の要点をコードを用いて説明する．
 
-ここでは，app5.js及び構成ファイル内のプログラムについて説明する．
-まず，app5.js内で以下のような画像のパスをicon.ejsに渡す．
+まず，```app5.js```内で以下のような画像のパスをicon.ejsに渡す．
 ```
 filename:"./public/Apple_logo_black.svg"
 ```
-次にicon.ejsにおいて渡されたパスを元に表示を行っている．
+次に```icon.ejs```において渡されたパスを元に表示を行っている．
 ```
 <img src="<%= filename %>" alt="<%= alt %>">
 ```
 
 ### luck
 ##### 概要
-このサービスは，乱数を生成するrand関数を用いて運勢を大吉から凶までの6種類で占うものである．
+このサービスは，乱数を生成する```rand関数```を用いて運勢を大吉から凶までの6種類で占うものである．
 
 ##### 利用方法
 このサービスの利用方法は，```index.html```において```luck```をクリックするだけで占うことができる．また，ページをリロードするたびに運勢を再度占ってくれる．
@@ -141,7 +154,9 @@ filename:"./public/Apple_logo_black.svg"
 luck.ejs | luckのテンプレートファイル
 
 ##### 内部処理
+ここでは，```app5.js```及び構成ファイル内のプログラムについて説明する．
 
+以下に```app5.js```内での処理の流れをフローチャートとして記載する．
 ```mermaid
 flowchart TD;
 start["開始"];
@@ -153,10 +168,9 @@ start --> get
 get --> if
 if --> end1
 ```
+次に各処理の要点をコードを用いて説明する．
 
-ここでは，app5.js及び構成ファイル内のプログラムについて説明する．
-
-まず，app5.jsにおいてrand関数を用いた以下のコードにより1から6までの乱数を出力させる．
+まず，```app5.js```において```rand関数```を用いた以下のコードにより1から6までの乱数を出力させる．
 ```
 const num = Math.floor( Math.random() * 6 + 1 );
 ```
@@ -169,7 +183,7 @@ else if( num==4 ) luck = '吉';
 else if( num==5 ) luck = '末吉';
 else if( num==6 ) luck = '凶';
 ```
-その文字列を元にluck.ejsにおいて以下のコードにより表示を行う．
+その文字列を元に```luck.ejs```において以下のコードにより表示を行う．
 ```
 <p>あなたの今日の運勢は<%= luck %>です．</p>
 ```
@@ -194,7 +208,9 @@ janken.html | jankenの開始画面
 janken.ejs | jankenのテンプレートファイル
 
 ##### 内部処理
+ここでは，```app5.js```及び構成ファイル内のプログラムについて説明する．
 
+以下に```app5.js```内での処理の流れをフローチャートとして記載する．
 ```mermaid
 flowchart TD;
 start["開始"];
@@ -218,14 +234,13 @@ start --> myhand --> if1
 
 result --> match --> end1
 ```
+次に各処理の要点をコードを用いて説明する．
 
-ここでは，app5.js及び構成ファイル内のプログラムについて説明する．
-
-まず，app5.jsにおいてjanken.htmlに入力された自分の手をもらう．
+まず，```app5.js```において```janken.html```に入力された自分の手をもらう．
 ```
 let hand = req.query.hand;
 ```
-次に，rand関数を用いた以下のコードを用いて1から3の乱数を出力させ，if文により，コンピュータの手に変換する．
+次に，```rand関数```を用いた以下のコードを用いて1から3の乱数を出力させ，if文により，コンピュータの手に変換する．
 ```
 const num = Math.floor( Math.random() * 3 + 1 );
 let cpu = '';
@@ -251,7 +266,7 @@ switch(hand){
       }
 ```
 
-最後に，自分の手，コンピュータの手などの情報をオブジェクトとしてまとめてjanken.ejsに渡している．
+最後に，自分の手，コンピュータの手などの情報をオブジェクトとしてまとめて```janken.ejs```に渡している．
 ```
 const display = {
     your: hand,
@@ -285,7 +300,9 @@ seimei.ejs | seimeiのテンプレートファイル
 seimei_error.ejs | 占いができない場合のテンプレートファイル
 
 ##### 内部処理
+ここでは，```app5.js```及び構成ファイル内のプログラムについて説明する．
 
+以下に```app5.js```内での処理の流れをフローチャートとして記載する．
 ```mermaid
 flowchart TD;
 start["開始"];
@@ -309,8 +326,9 @@ get4 --> get5
 get5 --> end2
 
 ```
+次に各処理の要点をコードを用いて説明する．
 
-まず，seimei.htmlから入力された名字と名前を文字列として受け取り，文字列から文字の配列に変換する．
+まず，```seimei.html```から入力された名字と名前を文字列として受け取り，文字列から文字の配列に変換する．
 ```
 let first_name = req.query.first;
 let family_name = req.query.family;
@@ -359,7 +377,7 @@ function check_char(target_str){
   return error;
 }
 ```
-```check_char関数```の結果を踏まえ，行き先をseimei_error.ejsかseimei.ejsかを判別している．
+```check_char関数```の結果を踏まえ，行き先を```seimei_error.ejs```か```seimei.ejs```かを判別している．
 
 
 ### day
@@ -381,7 +399,9 @@ day.html | dayの開始画面
 day.ejs | dayのテンプレートファイル
 
 ##### 内部処理
+ここでは，```app5.js```及び構成ファイル内のプログラムについて説明する．
 
+以下に```app5.js```内での処理の流れをフローチャートとして記載する．
 ```mermaid
 flowchart TD;
 start["開始"];
@@ -404,8 +424,9 @@ result --> pass
 pass --> end1
 
 ```
+次に各処理の要点をコードを用いて説明する．
 
-まず，day.htmlから年月日の文字列を受け取り，年と月と日を数字に変換したうえでそれぞれ格納している．
+まず，```day.html```から年月日の文字列を受け取り，年と月と日を数字に変換したうえでそれぞれ格納している．
 ```
 let date = req.query.date;
 let date_info = date.split("-");
@@ -415,7 +436,7 @@ let month = Number(date_info[1]);
 let days = Number(date_info[2]);
 ```
 
-次に，曜日を求めるための下準備を行い，ツェラーの公式により曜日に該当する数値を求める．
+次に，曜日を求めるための下準備を行い，```ツェラーの公式```により曜日に該当する数値を求める．
 ```
 let y = month<3? year-1:year;
 let Y = y%100;
@@ -426,4 +447,4 @@ let _day1 = Y+Math.floor(Y/4)-2*Math.floor(y/100)+Math.floor(y/400);
 let _day2 = Math.floor((26*(m+1))/10)+d;
 let day_number = (_day1+_day2)%7;
 ```
-最後に，数値を曜日の文字列に変換し，day.ejsに渡している．
+最後に，数値を曜日の文字列に変換し，```day.ejs```に渡している．
