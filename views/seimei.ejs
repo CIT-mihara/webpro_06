@@ -7,11 +7,11 @@
 <body>
     <p>あなたの名字は<%= first %>ですね?</p>
     <p>あなたの名前は<%= family %>ですね?</p>
-    <p>ﾑﾑｯ!!!水晶が<%= strength %><%= color %>になっておる!</p>
-    <p>きっとその色がお主のラッキーカラーじゃ!</p>
-    <p>運勢は．．．<%= power %>じゃ!</p>
-    <p>人生は色々じゃ!頑張れよ〜!</p>
+    <p>ラッキーカラー：<%= strength %><%= color %></p>
+    <p>運勢は：<%= power %></p>
+    <p>今日も一日，頑張りましょう!</p>
     <br>
+    <p>再度，占えます</p>
     <form action="/seimei">
         名字<input type="text" name="first" required><br>
         名前<input type="text" name="family" required><br>

@@ -284,18 +284,18 @@ app.get("/seimei", (req, res) => {
       else if (max_color.has("black"))  {luck_color="黒色";}
       else if (max_color.has("white"))  {luck_color="白色";}
     }
-    else luck_color = "が，よくわからん色";
+    else luck_color = "虹色";
 
     if(max <= 3)  strength_color = "薄い";
-    else          strength_color = "強い";
+    else          strength_color = "濃い";
 
     let luck_total = name_info.reduce((sum, id) => {return sum + id.luck},0);
     let luck_power = "";
 
-    if(luck_total <= 5) luck_power = "弱そう";
-    else if(luck_total <= 10) luck_power = "強そう";
-    else if(luck_total <= 13) luck_power = "ものすごく強そう";
-    else luck_power = "禍々しそう";
+    if(luck_total <= 5) luck_power = "凶";
+    else if(luck_total <= 10) luck_power = "吉";
+    else if(luck_total <= 13) luck_power = "中吉";
+    else luck_power = "大吉";
 
     const display = {
       first: first_str.join(""),
