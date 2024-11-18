@@ -114,6 +114,7 @@ res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
 ##### ファイル構成
 ファイル名 | 機能
 -|-
+Apple_logo_black.svg | Apple社のロゴの画像
 icon.ejs | iconのテンプレートファイル
 
 ##### 内部処理
@@ -125,7 +126,7 @@ icon.ejs | iconのテンプレートファイル
 flowchart TD;
 start["開始"];
 end1["終了"]
-pass["画像のpassを送信"]
+pass["画像のパスを送信"]
 
 start --> pass
 pass --> end1
